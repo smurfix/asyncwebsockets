@@ -1,3 +1,9 @@
+asyncwebsockets (0.6.0-1) unstable; urgency=medium
+
+  * Merge
+
+ -- Matthias Urlichs <matthias@urlichs.de>  Tue, 15 Sep 2020 20:07:55 +0200
+
 asyncwebsockets (0.5.2-1) unstable; urgency=medium
 
   * New release
