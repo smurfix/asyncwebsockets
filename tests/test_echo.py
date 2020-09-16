@@ -9,7 +9,7 @@ from asyncwebsockets.server import open_websocket_server
 
 @pytest.mark.trio
 async def test_echo():
-    async with open_websocket("ws://echo.websocket.org") as sock:
+    async with open_websocket("ws://echo.websocket.org") as sock:  # pylint: disable=E1701
         await sock.send(b"test")
         rcvd = 0
         async for message in sock:
@@ -27,7 +27,7 @@ async def test_local_echo():
     async with trio.open_nursery() as n:
 
         async def serve_one(s):
-            async with open_websocket_server(s) as w:
+            async with open_websocket_server(s) as w:  # pylint: disable=E1701
                 async for m in w:
                     if isinstance(m, Message):
                         await w.send(m.data)
@@ -44,8 +44,7 @@ async def test_local_echo():
         listeners = await n.start(serve)
         conn = await trio.testing.open_stream_to_socket_listener(listeners[0])
 
-        sock = await create_websocket_client(
-            conn, "localhost", "/", subprotocols=["echo"])
+        sock = await create_websocket_client(conn, "localhost", "/", subprotocols=["echo"])
         await sock.send(b"test")
         rcvd = 0
         async for message in sock:
@@ -62,7 +61,7 @@ async def test_local_echo():
 
 @pytest.mark.trio
 async def test_secure_echo():
-    async with open_websocket("wss://echo.websocket.org") as sock:
+    async with open_websocket("wss://echo.websocket.org") as sock:  # pylint: disable=E1701
         await sock.send("test")
         rcvd = 0
         async for message in sock:
